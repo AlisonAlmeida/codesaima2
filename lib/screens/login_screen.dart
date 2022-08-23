@@ -4,8 +4,7 @@ import 'package:codesaima2/core/colors.dart';
 import 'package:codesaima2/core/const.dart';
 import 'package:codesaima2/core/credentials.dart';
 import 'package:codesaima2/models/user.dart';
-import 'package:codesaima2/models/user_data.dart';
-import 'package:codesaima2/responsive/dimensions.dart';
+import 'package:codesaima2/responsive/responsive_layout.dart';
 import 'package:codesaima2/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:gsheets/gsheets.dart';
@@ -84,15 +83,15 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Center(
+      body: Center(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.only(
                     left: 10, right: 10, top: 50.0, bottom: 50.0),
                 child: SizedBox(
-                    width: MediaQuery.of(context).size.width < kTabletWidth
+                    width: ResponsiveLayout.isMobile(context)
                         ? 500
                         : 800,
                     child: Center(child: Image.asset(kPathMainLogoCodesaima))),
@@ -147,13 +146,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-      persistentFooterButtons: [
-        ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('Teste'))
-      ],
     );
   }
 }

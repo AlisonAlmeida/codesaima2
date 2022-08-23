@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:codesaima2/core/colors.dart';
+import 'package:codesaima2/core/const.dart';
 import 'package:codesaima2/models/user.dart';
-import 'package:codesaima2/models/user_data.dart';
+import 'package:codesaima2/screens/acompanhamento_plantao_social_screen.dart';
 import 'package:codesaima2/screens/config_screen.dart';
 import 'package:codesaima2/screens/home_page.dart';
 import 'package:codesaima2/screens/login_screen.dart';
+import 'package:codesaima2/screens/report_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,14 +26,17 @@ class _MyAppState extends State<MyApp> {
     return ChangeNotifierProvider(
       create: (context) => User(),
       child: MaterialApp(
-        title: 'Codesaima',
+        title: kAppName,
         theme: ThemeData(
           primarySwatch: red,
         ),
-        home: LoginPage(),
+        home: HomePage(),
         debugShowCheckedModeBanner: false,
         routes: {
           '/home': (context) => HomePage(),
+          '/report': (context) => ReportScreen(),
+          '/plantao_social_morar_melhor': (context) =>
+              AcompanhamentoPlantaoSocialScreen(),
           '/config': (context) => ConfigurationsScreen(),
           '/login': (context) => LoginPage(),
         },

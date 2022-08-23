@@ -1,4 +1,5 @@
 import 'package:codesaima2/responsive/appbar.dart';
+import 'package:codesaima2/responsive/body.dart';
 import 'package:codesaima2/responsive/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +14,9 @@ class _TabletScaffoldState extends State<TabletScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppbar,
+      appBar: CustomAppBar(title: 'Codesaima'),
       drawer: CustomDrawer(),
+      body: CustomBody(),
     );
   }
 }
