@@ -3,6 +3,8 @@
 import 'package:codesaima2/core/colors.dart';
 import 'package:codesaima2/core/const.dart';
 import 'package:codesaima2/core/credentials.dart';
+import 'package:codesaima2/core/misc.dart';
+import 'package:codesaima2/core/theme_provider.dart';
 import 'package:codesaima2/models/user.dart';
 import 'package:codesaima2/responsive/responsive_layout.dart';
 import 'package:codesaima2/screens/home_page.dart';
@@ -82,68 +84,85 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text('Login'),
+        actions: [
+          Consumer<ThemeProvider>(
+            builder: (context, value, child) => IconButton(
+                onPressed: () => value.changeTheme(value.getThemeMode),
+                icon: Icon(
+                    value.getThemeMode ? iconAppThemeDark : iconAppThemeLight)),
+          )
+        ],
+      ),
       body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 10, right: 10, top: 50.0, bottom: 50.0),
-                child: SizedBox(
-                    width: ResponsiveLayout.isMobile(context)
-                        ? 500
-                        : 800,
-                    child: Center(child: Image.asset(kPathMainLogoCodesaima))),
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 10, right: 10, top: 50.0, bottom: 50.0),
+              child: SizedBox(
+                  width: ResponsiveLayout.isMobile(context) ? 500 : 800,
+                  child: Center(
+                      child: Consumer<ThemeProvider>(
+                    builder: (context, value, child) => Image.asset(
+                        value.getThemeMode
+                            ? kPathMainLogoCodesaimaWhite
+                            : kPathMainLogoCodesaima),
+                  ))),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: TextField(
+                cursorColor: Colors.black,
+                controller: cpfController,
+                decoration: InputDecoration(
+                  fillColor: Colors.black,
+                  hintText: 'CPF',
+                  prefixIcon: Icon(Icons.person),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.primary,
+                          width: 2)),
+                  border: OutlineInputBorder(),
+                ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: TextField(
-                  controller: cpfController,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 15, bottom: 40),
+              child: TextField(
+                  controller: passwordController,
+                  obscureText: true,
                   decoration: InputDecoration(
-                    hintText: 'CPF',
-                    prefixIcon: Icon(Icons.person, color: Colors.red),
+                    hintText: 'Senha',
+                    prefixIcon: Icon(Icons.lock),
                     focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red, width: 2)),
+                        borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 2)),
                     border: OutlineInputBorder(),
                   ),
+                  onEditingComplete: () => tryLogin()),
+            ),
+            SizedBox(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                ),
+                onPressed: () => tryLogin(),
+                child: Text(
+                  'Acessar',
+                  style: TextStyle(color: white, fontSize: 25),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 15, bottom: 40),
-                child: TextField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: 'Senha',
-                      prefixIcon: Icon(Icons.lock, color: Colors.red),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red, width: 2)),
-                      border: OutlineInputBorder(),
-                    ),
-                    onEditingComplete: () => tryLogin()),
-              ),
-              SizedBox(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    primary: red,
-                  ),
-                  onPressed: () => tryLogin(),
-                  child: Text(
-                    'Acessar',
-                    style: TextStyle(color: white, fontSize: 25),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 100,
-              ),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 100,
+            ),
+          ],
         ),
       ),
     );

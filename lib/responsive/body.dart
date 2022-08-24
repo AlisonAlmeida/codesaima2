@@ -10,7 +10,11 @@ class CustomBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [Center(child: ProgramasView())],
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text('Programas'),
+        ProgramsView(),
+      ],
     );
   }
 }

@@ -20,7 +20,15 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: CustomDrawer()),
-          Expanded(child: ProgramasView())
+          Expanded(
+            flex: 3,
+            child: Column(
+              children: [
+                Text('Programas'),
+                ProgramsView(),
+              ],
+            ),
+          )
         ],
       ),
     );

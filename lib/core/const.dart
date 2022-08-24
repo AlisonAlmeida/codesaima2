@@ -3,12 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 const kPathMainLogoCodesaima = 'lib/assets/images/logo_codesaima.png';
+const kPathMainLogoCodesaimaWhite =
+    'lib/assets/images/logo_codesaima_white.png';
 const kPathDrawerLogoCodesaima =
     'lib/assets/images/logo_codesaima_drawer_header.png';
-
 const kPathAquiTemDono = 'lib/assets/images/logo_aqui_tem_dono.png';
 const kPathMorarMelhor = 'lib/assets/images/logo_morar_melhor.png';
 const kAppName = 'Codesaima';
+
+List<String> socialProfileList = [
+  'PCD',
+  'Idoso',
+  'Mãe chefe de família',
+  'Outros'
+];
+List<String> constructionStatusList = [
+  'PCD',
+  'Idoso',
+  'Mãe chefe de família',
+  'Outros'
+];
+List<String> satisfactionLevelList = ['Ótimo', 'Bom', 'Regular', 'Péssimo'];
 
 showGeneralMessageDialog(BuildContext context, String message) {
   showDialog(
@@ -38,6 +53,6 @@ showGeneralLoading(BuildContext context) {
   );
   showDialog(
       context: context,
-      builder: (context) =>
-          Container(width: 50, height: 50, color: white, child: spinkit));
+      builder: (context) => Container(
+          width: 50, height: 50, color: Colors.white70, child: spinkit));
 }

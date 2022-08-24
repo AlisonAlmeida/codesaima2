@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables
 
 import 'package:codesaima2/core/const.dart';
 import 'package:codesaima2/models/user.dart';
@@ -16,21 +16,27 @@ class CustomDrawer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            width: ResponsiveLayout.isDesktop(context) ? 300 : 100,
-            height: 100,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(ResponsiveLayout.isDesktop(context)
-                        ? kPathMainLogoCodesaima
-                        : kPathDrawerLogoCodesaima))),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CircleAvatar(
+                child: Icon(Icons.person),
+                radius: 30,
+              ),
+              Container(
+                  width: ResponsiveLayout.isDesktop(context) ? 300 : 100,
+                  height: ResponsiveLayout.isDesktop(context) ? 100 : 50,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      image: DecorationImage(
+                          image: AssetImage(kPathMainLogoCodesaima)))),
+            ],
           ),
           Padding(
             padding: EdgeInsets.only(left: 15),
             child: Consumer<User>(
-                builder: (context, user, child) =>
-                    Text(user.name == '' ? 'Usuário não logado' : user.name)),
+                builder: (context, user, child) => Text(
+                    user.name == '' ? 'Usuário não identificado' : user.name, style: TextStyle(fontSize: 40),)),
           ),
           Divider(),
           ListTile(
@@ -48,7 +54,10 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
               leading: Icon(Icons.logout),
               title: Text('Deslogar'),
-              onTap: () => Navigator.pop(context)),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              }),
         ],
       ),
     );
