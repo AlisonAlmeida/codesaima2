@@ -17,12 +17,20 @@ dependencies:
   provider: ^6.0.3
   objectbox: ^1.6.2
   objectbox_flutter_libs: ^1.6.2
+  pdf: ^3.8.3
+  share_plus: ^4.0.10+1
+  excel: ^2.0.0-null-safety-3
+  path_provider: ^2.0.11
+  intl: ^0.17.0
+  url_launcher: ^6.1.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  build_runner: ^2.2.0
+  objectbox_generator: ^1.6.2
 
 flutter:
   uses-material-design: true

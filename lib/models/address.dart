@@ -2,7 +2,6 @@ import 'dart:convert';
 
 class Address {
   Address({
-    int id = 0,
     this.cep,
     this.logradouro,
     this.complemento,
@@ -30,7 +29,7 @@ class Address {
         numero: json["numero"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<dynamic, dynamic> toJson() => {
         "cep": cep,
         "logradouro": logradouro,
         "complemento": complemento,
@@ -41,6 +40,12 @@ class Address {
       };
 }
 
-Address addressFromJson(String str) => Address.fromJson(json.decode(str));
+/**
+ * Address addressFromJson(String str) {
+  print(json.decode(str));
+  return Address.fromJson(json.decode(str));
+}
 
 String addressToJson(Address data) => json.encode(data.toJson());
+
+ */

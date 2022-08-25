@@ -1,19 +1,26 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:codesaima2/core/colors.dart';
 import 'package:codesaima2/core/const.dart';
+import 'package:codesaima2/core/objectbox_helper.dart';
 import 'package:codesaima2/core/theme_provider.dart';
 import 'package:codesaima2/models/user.dart';
-import 'package:codesaima2/screens/acompanhamento_plantao_social_screen.dart';
+import 'package:codesaima2/screens/plantao_social/acompanhamento_plantao_social_screen.dart';
 import 'package:codesaima2/screens/config_screen.dart';
 import 'package:codesaima2/screens/home_page.dart';
+import 'package:codesaima2/screens/plantao_social/lista_acompanhamento_plantao_social_screen.dart';
 import 'package:codesaima2/screens/login_screen.dart';
 import 'package:codesaima2/screens/report_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(ChangeNotifierProvider<ThemeProvider>(
-    create: (context) => ThemeProvider(), child: MyApp()));
+late ObjectBox objectBox;
+
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  objectBox = await ObjectBox.init();
+  runApp(ChangeNotifierProvider<ThemeProvider>(
+      create: (context) => ThemeProvider(), child: MyApp()));
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -35,8 +42,9 @@ class _MyAppState extends State<MyApp> {
           theme: provider.getThemeMode
               ? ThemeData.dark()
               : ThemeData.light().copyWith(
-                  colorScheme: ColorScheme.fromSwatch(
-                      primarySwatch: Colors.teal)), //Color(0xFFE0020C)
+                  colorScheme:
+                      ColorScheme.fromSwatch(primarySwatch: Colors.teal),
+                ),
           home: LoginPage(),
           debugShowCheckedModeBanner: false,
           routes: {
@@ -44,6 +52,8 @@ class _MyAppState extends State<MyApp> {
             '/report': (context) => ReportScreen(),
             '/plantao_social_morar_melhor': (context) =>
                 AcompanhamentoPlantaoSocialScreen(),
+            '/list_plantao_social_morar_melhor': (context) =>
+                ListAcompanhamentoPlantaoSocialMorarMelhor(),
             '/config': (context) => ConfigurationsScreen(),
             '/login': (context) => LoginPage(),
           },

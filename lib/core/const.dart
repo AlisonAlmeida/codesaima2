@@ -18,10 +18,9 @@ List<String> socialProfileList = [
   'Outros'
 ];
 List<String> constructionStatusList = [
-  'PCD',
-  'Idoso',
-  'Mãe chefe de família',
-  'Outros'
+  'Iniciada',
+  'Não iniciada',
+  'Concluída',
 ];
 List<String> satisfactionLevelList = ['Ótimo', 'Bom', 'Regular', 'Péssimo'];
 

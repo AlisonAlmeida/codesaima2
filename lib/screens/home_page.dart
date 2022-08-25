@@ -17,8 +17,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    print(_size);
     return ResponsiveLayout(
       desktopscaffold: Row(
         children: [

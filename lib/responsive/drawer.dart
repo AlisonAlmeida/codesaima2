@@ -24,7 +24,7 @@ class CustomDrawer extends StatelessWidget {
                 radius: 30,
               ),
               Container(
-                  width: ResponsiveLayout.isDesktop(context) ? 300 : 100,
+                  width: ResponsiveLayout.isDesktop(context) ? 200 : 100,
                   height: ResponsiveLayout.isDesktop(context) ? 100 : 50,
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -36,7 +36,9 @@ class CustomDrawer extends StatelessWidget {
             padding: EdgeInsets.only(left: 15),
             child: Consumer<User>(
                 builder: (context, user, child) => Text(
-                    user.name == '' ? 'Usuário não identificado' : user.name, style: TextStyle(fontSize: 40),)),
+                      user.name == '' ? 'Usuário não identificado' : user.name,
+                      style: TextStyle(fontSize: 30),
+                    )),
           ),
           Divider(),
           ListTile(

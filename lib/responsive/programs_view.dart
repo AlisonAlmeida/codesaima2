@@ -11,8 +11,8 @@ class ProgramsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 150,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CentralGridButton(
               callback: () => showModalBottomSheet(
@@ -32,18 +32,21 @@ class ProgramsView extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: ListTile(
-                                trailing: Icon(Icons.house),
-                                title: Text('Inscrição'),
+                                trailing: Icon(Icons.home_work),
+                                title: Text('Cadastro Plantão Social'),
+                                onTap: () => Navigator.pushNamed(
+                                    context, '/plantao_social_morar_melhor'),
                               ),
                             ),
                             Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               child: ListTile(
-                                trailing: Icon(Icons.report),
-                                title: Text('Acompanhamento Plantão Social'),
-                                onTap: () => Navigator.pushNamed(
-                                    context, '/plantao_social_morar_melhor'),
+                                onTap: () => Navigator.pushNamed(context,
+                                    '/list_plantao_social_morar_melhor'),
+                                trailing: Icon(Icons.list),
+                                title:
+                                    Text('Listas Cadastros do Plantão Social'),
                               ),
                             ),
                           ],
