@@ -40,12 +40,12 @@ class _ConfigurationsScreenState extends State<ConfigurationsScreen> {
             ),
             Row(
               children: [
-                Text('Deletar todos os cadastros:'),
+                Flexible(
+                    child:
+                        Text('Deletar todos os cadastros do plantão social:')),
                 SizedBox(width: 10),
                 ElevatedButton(
-                    onPressed: () =>
-                      objectBox.removeAllPlantaoSocial()
-                    ,
+                    onPressed: () => objectBox.removeAllPlantaoSocial(),
                     child: Text('Deletar'))
               ],
             )

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables
 
 import 'package:codesaima2/core/const.dart';
+import 'package:codesaima2/core/theme_provider.dart';
 import 'package:codesaima2/models/user.dart';
 import 'package:codesaima2/responsive/responsive_layout.dart';
 import 'package:flutter/material.dart';
@@ -19,17 +20,22 @@ class CustomDrawer extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircleAvatar(
+              /**
+               * CircleAvatar(
                 child: Icon(Icons.person),
                 radius: 30,
               ),
-              Container(
-                  width: ResponsiveLayout.isDesktop(context) ? 200 : 100,
-                  height: ResponsiveLayout.isDesktop(context) ? 100 : 50,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      image: DecorationImage(
-                          image: AssetImage(kPathMainLogoCodesaima)))),
+               */
+              Consumer<ThemeProvider>(
+                builder: (context, value, child) => Container(
+                    width: 200,
+                    height: 100,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(value.isAppThemeDark
+                                ? kPathMainLogoCodesaimaWhite
+                                : kPathMainLogoCodesaima)))),
+              ),
             ],
           ),
           Padding(
@@ -48,7 +54,7 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
               leading: Icon(Icons.pie_chart),
               title: Text('Relatórios'),
-              onTap: () => Navigator.popAndPushNamed(context, '/report')),
+              onTap: () => Navigator.pushNamed(context, '/report')),
           ListTile(
               leading: Icon(Icons.settings),
               title: Text('Configurações'),
@@ -58,7 +64,9 @@ class CustomDrawer extends StatelessWidget {
               title: Text('Deslogar'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pop(context);
+                ResponsiveLayout.isDesktop(context)
+                    ? Navigator.pop(context)
+                    : null;
               }),
         ],
       ),

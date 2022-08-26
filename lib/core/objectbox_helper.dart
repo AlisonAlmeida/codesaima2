@@ -29,8 +29,10 @@ class ObjectBox {
   PlantaoSocial? getPlantaoSocial(int id) => _plantaoSocialBox.get(id);
   bool deletePlantaoSocial(int id) => _plantaoSocialBox.remove(id);
 
-  List<PlantaoSocial> getAllPlantaoSocial() {
-    final List<PlantaoSocial> plantaoSocialList = _plantaoSocialBox.getAll();
-    return plantaoSocialList;
-  }
+  Stream<List<PlantaoSocial>> getAllPlantaoSocialStream() => _plantaoSocialBox
+      .query()
+      .watch(triggerImmediately: true)
+      .map((event) => event.find());
+
+  List<PlantaoSocial> getAllPlantaoSocialList() => _plantaoSocialBox.getAll();
 }

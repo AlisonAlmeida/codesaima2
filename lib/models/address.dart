@@ -29,7 +29,7 @@ class Address {
         numero: json["numero"],
       );
 
-  Map<dynamic, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "cep": cep,
         "logradouro": logradouro,
         "complemento": complemento,
@@ -40,12 +40,10 @@ class Address {
       };
 }
 
-/**
- * Address addressFromJson(String str) {
-  print(json.decode(str));
+ Address addressFromJson(String str) {
   return Address.fromJson(json.decode(str));
 }
 
 String addressToJson(Address data) => json.encode(data.toJson());
 
- */
+ 

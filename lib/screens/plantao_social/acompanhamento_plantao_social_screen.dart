@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AcompanhamentoPlantaoSocialScreen extends StatefulWidget {
-  const AcompanhamentoPlantaoSocialScreen({Key? key}) : super(key: key);
-
+  AcompanhamentoPlantaoSocialScreen({Key? key, this.id}) : super(key: key);
+  int? id;
   @override
   State<AcompanhamentoPlantaoSocialScreen> createState() =>
       _AcompanhamentoPlantaoSocialScreenState();
@@ -18,6 +18,7 @@ class AcompanhamentoPlantaoSocialScreen extends StatefulWidget {
 
 class _AcompanhamentoPlantaoSocialScreenState
     extends State<AcompanhamentoPlantaoSocialScreen> {
+  late bool _isUpdate;
   late FocusNode _focusNode;
   final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
@@ -46,6 +47,34 @@ class _AcompanhamentoPlantaoSocialScreenState
   @override
   void initState() {
     _focusNode = FocusNode();
+    _isUpdate = widget.id == null ? false : true;
+    if (_isUpdate) {
+      PlantaoSocial plantaoSocial = objectBox.getPlantaoSocial(widget.id!)!;
+      _nameController.text = plantaoSocial.name;
+      _phoneNumberController.text = plantaoSocial.phoneNumber;
+      Address address = addressFromJson(plantaoSocial.address);
+
+      _cepController.text = address.cep!;
+      _ufController.text = address.uf!;
+      _cityController.text = address.localidade!;
+      _streetController.text = address.logradouro!;
+      _numberController.text = address.numero!;
+      _districtController.text = address.bairro!;
+      _complementController.text = address.complemento!;
+      _propertyOwnerController.text = plantaoSocial.propertyOwner;
+      _timeLiveStateController.text = plantaoSocial.timeLiveState;
+      _howManyFamiliesController.text = plantaoSocial.howManyFamilies;
+      _howManyPeopleLiveController.text = plantaoSocial.howManyPeopleLive;
+      _socialProfile = plantaoSocial.socialProfile;
+      _kindImprovementeController.text = plantaoSocial.kindImprovemente;
+      _groupValueConstructionStatus = plantaoSocial.constructionStatus;
+      _groupValueSatisfactionLevel = plantaoSocial.satisfactionState;
+      _observationsController.text = plantaoSocial.observations;
+      _responsibleCompanyController.text = plantaoSocial.responsibleCompany;
+      _visitorController.text = plantaoSocial.visitor;
+      _socialWorkerController.text = plantaoSocial.socialWorker;
+      _groupValueSocialBenefit = plantaoSocial.socialProfile;
+    }
     super.initState();
   }
 
@@ -70,6 +99,42 @@ class _AcompanhamentoPlantaoSocialScreenState
       Navigator.pop(context);
       showGeneralMessageDialog(context, 'Erro: $e');
     }
+  }
+
+  _savePlantaoSocial() {
+    Address address = Address(
+      cep: _cepController.text,
+      logradouro: _streetController.text,
+      bairro: _districtController.text,
+      localidade: _cityController.text,
+      uf: _ufController.text,
+      numero: _numberController.text,
+      complemento: _complementController.text,
+    );
+    final DateTime now = DateTime.now();
+    final String dateFormattedForDocument =
+        DateFormat('yyyy-MM-dd hh-mm').format(now);
+    PlantaoSocial plantaoSocial = PlantaoSocial(
+        id: _isUpdate ? widget.id! : 0,
+        name: _nameController.text,
+        phoneNumber: _phoneNumberController.text,
+        address: addressToJson(address),
+        propertyOwner: _propertyOwnerController.text,
+        timeLiveState: _timeLiveStateController.text,
+        howManyFamilies: _howManyFamiliesController.text,
+        howManyPeopleLive: _howManyPeopleLiveController.text,
+        socialProfile: _socialProfile,
+        kindImprovemente: _kindImprovementeController.text,
+        constructionStatus: _groupValueConstructionStatus,
+        satisfactionState: _groupValueSatisfactionLevel,
+        observations: _observationsController.text,
+        responsibleCompany: _responsibleCompanyController.text,
+        visitor: _visitorController.text,
+        socialWorker: _socialWorkerController.text,
+        date: dateFormattedForDocument);
+
+    objectBox.insertPlantaoSocial(plantaoSocial);
+    Navigator.pop(context);
   }
 
   @override
@@ -102,6 +167,7 @@ class _AcompanhamentoPlantaoSocialScreenState
     return Scaffold(
       appBar: AppBar(
         title: const Text('Plantão Social'),
+        
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -110,7 +176,7 @@ class _AcompanhamentoPlantaoSocialScreenState
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
-                'Cadastro Plantão Social',
+                'Acompanhamento Plantão Social',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 30),
               ),
@@ -436,6 +502,7 @@ class _AcompanhamentoPlantaoSocialScreenState
               Container(
                 decoration: BoxDecoration(border: Border.all(width: 1)),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: EdgeInsets.all(5),
@@ -469,6 +536,7 @@ class _AcompanhamentoPlantaoSocialScreenState
               Container(
                 decoration: BoxDecoration(border: Border.all(width: 1)),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: EdgeInsets.all(5),
@@ -571,41 +639,7 @@ class _AcompanhamentoPlantaoSocialScreenState
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Address address = Address(
-            cep: _cepController.text,
-            logradouro: _streetController.text,
-            bairro: _districtController.text,
-            localidade: _cityController.text,
-            uf: _ufController.text,
-            numero: _numberController.text,
-            complemento: _complementController.text,
-          );
-          final DateTime now = DateTime.now();
-          final String dateFormattedForDocument =
-              DateFormat('yyyy-MM-dd-hh-mm').format(now);
-          PlantaoSocial plantaoSocial = PlantaoSocial(
-              name: _nameController.text,
-              phoneNumber: _phoneNumberController.text,
-              address: address.toJson().toString(),
-              propertyOwner: _propertyOwnerController.text,
-              timeLiveState: _timeLiveStateController.text,
-              howManyFamilies: _howManyFamiliesController.text,
-              howManyPeopleLive: _howManyPeopleLiveController.text,
-              socialProfile: _socialProfile,
-              kindImprovemente: _kindImprovementeController.text,
-              constructionStatus: _groupValueConstructionStatus,
-              satisfactionState: _groupValueSatisfactionLevel,
-              observations: _observationsController.text,
-              responsibleCompany: _responsibleCompanyController.text,
-              visitor: _visitorController.text,
-              socialWorker: _socialWorkerController.text,
-              date: dateFormattedForDocument);
-
-          objectBox.insertPlantaoSocial(plantaoSocial);
-          print(plantaoSocial.address);
-          Navigator.popAndPushNamed(context, '/home');
-        },
+        onPressed: _savePlantaoSocial,
         child: Icon(Icons.save),
       ),
     );

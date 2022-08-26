@@ -15,7 +15,6 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -23,6 +22,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
           Expanded(
             flex: 3,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Programas'),
                 ProgramsView(),

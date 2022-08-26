@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
                   colorScheme:
                       ColorScheme.fromSwatch(primarySwatch: Colors.teal),
                 ),
-          home: LoginPage(),
+          home: HomePage(),
           debugShowCheckedModeBanner: false,
           routes: {
             '/home': (context) => HomePage(),

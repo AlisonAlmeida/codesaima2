@@ -12,7 +12,11 @@ class ReportScreen extends StatefulWidget {
 class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body:   Center(child: Text('Relatórios'),),);
-    
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: Text('Relatórios'),
+      ),
+    );
   }
 }
